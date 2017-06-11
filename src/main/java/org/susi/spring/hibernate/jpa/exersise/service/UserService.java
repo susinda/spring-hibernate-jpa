@@ -10,6 +10,7 @@ public interface UserService {
 	public void add(User product);
 	public void addAll(Collection<User> products);
 	public List<User> listAll();
+	public User getUserById(String email);
 
 }
 

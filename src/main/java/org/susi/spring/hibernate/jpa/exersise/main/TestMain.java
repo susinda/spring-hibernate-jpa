@@ -1,11 +1,15 @@
 package org.susi.spring.hibernate.jpa.exersise.main;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.DataAccessException;
+import org.susi.spring.hibernate.jpa.exersise.model.ThrottleInfo;
 import org.susi.spring.hibernate.jpa.exersise.model.User;
 import org.susi.spring.hibernate.jpa.exersise.model.UserBase;
+import org.susi.spring.hibernate.jpa.exersise.service.ThrottleInfoService;
 import org.susi.spring.hibernate.jpa.exersise.service.UserService;
 
 public class TestMain {
@@ -19,9 +23,26 @@ public class TestMain {
 		UserService userService = (UserService) ctx.getBean("UserService");
 		
 		//Do some data operation
+		ThrottleInfo ti = new ThrottleInfo();
+		ti.setCurCount(0);
+		ti.setMaxCount(500);
+		ti.setTimeWindow(30);
+		ti.setTimeWindowUnit(TimeUnit.DAYS);
+		ti.setLastResetDate(new Timestamp(System.currentTimeMillis()));
 		
-		userService.add(new User("susi@gmail.com", "Susi", "Dman", UserBase.INTERNAL));
-		userService.add(new User("amal@gmail.com", "Amal", "Perera", UserBase.FACEBOOK));
+		ThrottleInfoService throttleInfoService = (ThrottleInfoService) ctx.getBean("ThrottleInfoService");
+		throttleInfoService.add(ti);
+		
+		//User user = new User("susi2@gmail.com", "Susi", "Dman", UserBase.INTERNAL);
+		//user.setThrottleInfo(ti);
+		//userService.add(user);
+		
+		User susi2 = userService.getUserById("susi2@gmail.com");
+		System.out.println("\n\n" + susi2.getThrottleInfo().getLastResetDate() + "\n\n");
+		
+		//User user2 = new User("susi3@gmail.com", "Susi", "333", UserBase.FACEBOOK);
+		//user2.setThrottleInfo(ti);
+		//userService.add(user2);
 		
 		System.out.println("listAll: " + userService.listAll());
 		

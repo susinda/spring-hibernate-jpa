@@ -8,6 +8,7 @@ public interface UserDao {
 
 	public void saveUser(User product);
 	public List<User> getAllUsers();
+	public User getUserById(String email);
 }
 
 

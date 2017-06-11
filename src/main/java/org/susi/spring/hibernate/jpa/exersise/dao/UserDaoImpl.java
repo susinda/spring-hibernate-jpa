@@ -24,6 +24,13 @@ public class UserDaoImpl extends AbstractJpaDao<User> implements UserDao {
 		return findAll();
 	}
 
+	@Override
+	public User getUserById(String email) {
+	     return getById(email);
+	}
+	
+
+
 //	@PersistenceContext
 //	private EntityManager em;
 //

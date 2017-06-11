@@ -2,6 +2,8 @@ package org.susi.spring.hibernate.jpa.exersise.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class User {
@@ -12,7 +14,20 @@ public class User {
 	private String lastName;
 	private UserBase userBase;
 	
+	@ManyToOne
+	@JoinColumn(name = "THROTTLE_ID")
+	private ThrottleInfo throttleInfo;
 	
+	public ThrottleInfo getThrottleInfo() {
+		return throttleInfo;
+	}
+
+	public void setThrottleInfo(ThrottleInfo throttleInfo) {
+		this.throttleInfo = throttleInfo;
+	}
+	
+	
+
 	public String getEmail() {
 		return email;
 	}

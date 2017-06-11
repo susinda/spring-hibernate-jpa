@@ -14,24 +14,29 @@ import org.susi.spring.hibernate.jpa.exersise.model.User;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserDao productDao;
+	private UserDao userDao;
 
 	@Transactional
 	public void add(User product) {
-		productDao.saveUser(product);
+		userDao.saveUser(product);
 	}
 	
 	@Transactional
 	public void addAll(Collection<User> products) {
 		for (User product : products) {
-			productDao.saveUser(product);
+			userDao.saveUser(product);
 		}
 	}
 
 	@Transactional(readOnly = true)
 	public List<User> listAll() {
-		return productDao.getAllUsers();
+		return userDao.getAllUsers();
 
+	}
+
+	@Override
+	public User getUserById(String email) {
+		return userDao.getUserById(email);
 	}
 
 }

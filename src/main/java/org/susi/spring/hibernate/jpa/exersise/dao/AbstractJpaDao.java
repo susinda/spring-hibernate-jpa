@@ -21,6 +21,10 @@ public abstract class AbstractJpaDao<T extends Object> {
 	public T getById(final Long id) {
 		return entityManager.find(clazz, id);
 	}
+	
+	public T getById(final String id) {
+		return entityManager.find(clazz, id);
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
